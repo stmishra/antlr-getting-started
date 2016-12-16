@@ -14,19 +14,23 @@ public class CalculatorListenerImplementation extends CalcBaseListener {
     @Override
     public void exitMultOrDiv(CalcParser.MultOrDivContext ctx) {
         int num1 = -1;
+
         try {
-            num1 =
-                    Integer.parseInt(ctx.expr().get(0).getText());
+            num1 = Integer.parseInt(ctx.expr().get(0).getText());
         } catch (Exception e) {
             num1 = stack.pop();
         }
+
         int num2 = -1;
+
         try {
             num2 = Integer.parseInt(ctx.expr().get(1).getText());
         } catch (NumberFormatException e) {
             num2 = stack.pop();
         }
+
         String symbol = ctx.op.getText();
+
         if (symbol.trim().equals("*")) {
             stack.push(num1 * num2);
         } else {
@@ -37,6 +41,7 @@ public class CalculatorListenerImplementation extends CalcBaseListener {
     @Override
     public void exitPlusOrMinus(CalcParser.PlusOrMinusContext ctx) {
         int num1 = -1;
+
         try {
             num1 = Integer.parseInt(ctx.expr().get(0).getText());
         } catch (NumberFormatException e) {
@@ -45,13 +50,13 @@ public class CalculatorListenerImplementation extends CalcBaseListener {
 
         int num2 = -1;
         try {
-
             num2 = Integer.parseInt(ctx.expr().get(1).getText());
         } catch (NumberFormatException e) {
             num2 = stack.pop();
         }
 
         String symbol = ctx.op.getText();
+
         if (symbol.trim().equals("+")) {
             stack.push(num1 + num2);
         } else {

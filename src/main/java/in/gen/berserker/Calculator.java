@@ -21,11 +21,14 @@ public class Calculator {
     public static void main(String... args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("   ");
-            System.out.print(">>> ");
-            String line = scanner.nextLine().trim();
-            if (!line.equals("") && null != line) {
-                ANTLRInputStream input = new ANTLRInputStream(line + "\n");
+            System.out.print(">>> "); //Prompt
+            String line = scanner.nextLine();
+            if (null != line && !line.trim().equals("")) {
+                if (!line.endsWith("\n")) {
+                    line += "\n";   //This takes care of annoying antlr log for missing NEWLINE at 'EOF'.. I could
+                                    //Probably fix the grammar, but this should do for now.
+                }
+                ANTLRInputStream input = new ANTLRInputStream(line);
                 CalcLexer lexer = new CalcLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 CalcParser parser = new CalcParser(tokens);

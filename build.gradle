@@ -14,12 +14,12 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-task antlr(type: JavaExec, dependsOn: 'classes') {
+task antlr(type: JavaExec) {
     main = 'in.gen.berserker.AntlrRunner'
     classpath=sourceSets.main.runtimeClasspath
 }
 
-task cleanAntlr(type: Delete) {
-    FileTree tree =  fileTree('src/main/java/in/gen/berserker/generated').include("*.java").include("*.tokens")
-    delete tree
-}
+//task cleanAntlr(type: Delete) {
+//    FileTree tree =  fileTree('src/main/java/in/gen/berserker/generated').include("*.java").include("*.tokens")
+//    delete tree
+//}

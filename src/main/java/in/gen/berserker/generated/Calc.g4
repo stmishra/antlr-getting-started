@@ -1,7 +1,7 @@
 grammar Calc;
 
 @header {
-   package in.gen.berserker.parser;
+   package in.gen.berserker.generated;
 }
 prog:	(expr NEWLINE)* ;
 expr:	expr op=('*'|'/') expr  #multOrDiv

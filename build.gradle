@@ -2,8 +2,18 @@ group 'in.gen.berserker'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'gradle-one-jar'
 
 sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -23,3 +33,6 @@ task antlr(type: JavaExec) {
 //    FileTree tree =  fileTree('src/main/java/in/gen/berserker/generated').include("*.java").include("*.tokens")
 //    delete tree
 //}
+task calculator(type: OneJar) {
+    mainClass = 'in.gen.berserker.Calculator'
+}

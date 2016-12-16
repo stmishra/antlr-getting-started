@@ -11,3 +11,4 @@ expr:	expr op=('*'|'/') expr  #multOrDiv
     ;
 NEWLINE : [\r\n]+ ;
 INT     : [0-9]+ ;
+WHITESPACE: (' ') -> skip;

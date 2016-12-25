@@ -17,7 +17,7 @@ public class AntlrRunner {
 
     public static void main(String... args) throws IOException, RecognitionException {
         AntlrRunner runner = new AntlrRunner();
-        runner.run(System.getProperty("user.dir") + "/src/main/java/in/gen/berserker/generated/Calc.g4");
+        runner.run(System.getProperty("user.dir") + "/src/main/java/in/gen/berserker/generated/Calc.g4", "-visitor");
     }
 
     public void run(String... args) throws IOException, RecognitionException {

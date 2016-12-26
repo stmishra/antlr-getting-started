@@ -3,8 +3,7 @@ package in.gen.berserker;
 import in.gen.berserker.generated.CalcBaseVisitor;
 import in.gen.berserker.generated.CalcParser;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 
 /**
  * Created by abhinavn on 25/12/16.
@@ -12,7 +11,7 @@ import java.util.Map;
 
 public class CalculatorVisitorImplementation extends CalcBaseVisitor{
     private Integer result;
-    private Map<String, Integer> doneCalculations = new HashMap<>();
+    private Stack<Integer> stack = new Stack<>();
 
     @Override
     public Integer visitMultOrDiv(CalcParser.MultOrDivContext ctx) {
@@ -45,15 +44,17 @@ public class CalculatorVisitorImplementation extends CalcBaseVisitor{
         StringBuilder sb = new StringBuilder(string1).append(symbol).append(string2);
 
         Integer num1, num2;
-        if (doneCalculations.containsKey(string1))
-            num1 = doneCalculations.get(string1);
-        else
+        try {
             num1 = Integer.parseInt(string1);
+        } catch (NumberFormatException e) {
+            num1 = stack.pop();
+        }
 
-        if (doneCalculations.containsKey(string2))
-            num2 = doneCalculations.get(string2);
-        else
+        try {
             num2 = Integer.parseInt(string2);
+        } catch (NumberFormatException e) {
+            num2 = stack.pop();
+        }
 
         switch (symbol) {
             case "+":
@@ -70,7 +71,7 @@ public class CalculatorVisitorImplementation extends CalcBaseVisitor{
                 break;
         }
 
-        doneCalculations.put(sb.toString(), result);
+        stack.push(result);
         return result;
     }
 }

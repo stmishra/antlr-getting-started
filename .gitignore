@@ -3,4 +3,3 @@ build/
 .idea
 .gradle
 gradle
-src/main/java/in/gen/berserker/generated/

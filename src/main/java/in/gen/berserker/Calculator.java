@@ -2,7 +2,6 @@ package in.gen.berserker;
 
 import in.gen.berserker.generated.CalcLexer;
 import in.gen.berserker.generated.CalcParser;
-import in.gen.berserker.generated.CalcVisitor;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -33,8 +32,18 @@ public class Calculator {
                 CalcLexer lexer = new CalcLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 CalcParser parser = new CalcParser(tokens);
-                //runListener(parser);
-                runVisitor(parser);
+
+                if (args.length == 0) {
+                    runVisitor(parser);
+                } else {
+                    switch (args[0]) {
+                        case "listener":
+                            runListener(parser);
+                            break;
+                        default:
+                            runVisitor(parser);
+                    }
+                }
             }
         }
 

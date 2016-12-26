@@ -32,12 +32,31 @@ public class Calculator {
                 CalcLexer lexer = new CalcLexer(input);
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
                 CalcParser parser = new CalcParser(tokens);
-                ParseTree tree = parser.prog();
-                ParseTreeWalker walker = new ParseTreeWalker();
-                walker.walk(new CalculatorListenerImplementation(), tree);
+
+                if (args.length == 0) {
+                    runVisitor(parser);
+                } else {
+                    switch (args[0]) {
+                        case "listener":
+                            runListener(parser);
+                            break;
+                        default:
+                            runVisitor(parser);
+                    }
+                }
             }
         }
 
     }
 
+    private static void runListener(CalcParser parser) {
+        ParseTree tree = parser.prog();
+        ParseTreeWalker walker = new ParseTreeWalker();
+        walker.walk(new CalculatorListenerImplementation(), tree);
+    }
+
+    private static void runVisitor(CalcParser parser) {
+        CalculatorVisitorImplementation calcImpl = new CalculatorVisitorImplementation();
+        calcImpl.visit(parser.prog());
+    }
 }
